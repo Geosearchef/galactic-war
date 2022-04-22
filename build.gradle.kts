@@ -28,6 +28,8 @@ repositories {
     maven("https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven")
 }
 
+val exposedVersion: String by project
+
 kotlin {
     jvm {
         compilations.all {
@@ -58,6 +60,7 @@ kotlin {
 //                testImplementation("io.mockk:mockk:1.12.3")
             }
         }
+
         val jvmMain by getting {
             dependencies {
                 implementation("com.sparkjava:spark-core:2.9.3")
@@ -70,12 +73,12 @@ kotlin {
 
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
 
-                val exposedVersion: String by project
-                dependencies {
-                    implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
-                    implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
-                    implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
-                }
+                implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
+                implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
+                implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
+
+                implementation("mysql:mysql-connector-java:8.0.28")
+                implementation("org.xerial:sqlite-jdbc:3.36.0.3")
             }
         }
         val jvmTest by getting {

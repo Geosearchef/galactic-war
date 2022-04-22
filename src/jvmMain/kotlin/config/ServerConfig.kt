@@ -5,8 +5,18 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import java.time.Duration
 
 data class ServerConfig(
-    val webserver: WebServerConfig
+    val webserver: WebServerConfig,
+    val database: DatabaseConfig
+)
 
+data class DatabaseConfig(
+    val user: String,
+    val password: String,
+    val db: String,
+    val host: String,
+    val port: String,
+    @JsonProperty("use-sqlite-instead") val useSqliteInstead: Boolean,
+    @JsonProperty("sqlite-db-file") val sqliteDbFile: String
 )
 
 data class WebServerConfig(

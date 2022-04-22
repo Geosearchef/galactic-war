@@ -1,4 +1,5 @@
 import config.ConfigService
+import data.DatabaseService
 import i18n.I18n
 import org.slf4j.LoggerFactory
 import util.Util
@@ -10,6 +11,8 @@ fun main(args: Array<String>) {
     val log = LoggerFactory.getLogger("main")
 
     log.info("Starting Galactic War Backend...")
+
+    DatabaseService.init()
     WebServerService.init()
 
     log.info("Galactic War Backend fully started")

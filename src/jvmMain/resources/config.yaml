@@ -6,4 +6,13 @@ webserver:
     idle-timeout-seconds: 10
     route: /play/socket
 
+database:
+  use-sqlite-instead: true
+  sqlite-db-file: db.sqlite
+  user: gw
+  db: gw
+  password: banana
+  host: localhost
+  port: 3306
+
 
