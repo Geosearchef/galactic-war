@@ -1,0 +1,9 @@
+webserver:
+  port: 9000
+  static-files-path: static
+  static-files-caching: true
+  websocket:
+    idle-timeout-seconds: 10
+    route: /play/socket
+
+

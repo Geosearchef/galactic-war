@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>GW Login</title>
+
+    #include("/base.vm")
+
+    <link rel="stylesheet" type="text/css" href="login.css">
+</head>
+<body>
+
+
+<script language="JavaScript">
+    var isIE = /*@cc_on!@*/false || !!document.documentMode;
+    if(isIE) {
+        document.write("Your browser is not supported!");
+    }
+</script>
+
+<form method="post" action="/user/authorize">
+    <input id="username-textfield" name="username" type="text" placeholder="${i18n["username"]}" autofocus/><br>
+    <input id="password-textfield" name="password" type="password" placeholder="${i18n["password"]}"/><br>
+    <input type="submit" value="${i18n["login"]}"/>
+</form>
+
+
+
+</body>
+</html>

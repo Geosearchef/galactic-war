@@ -1,0 +1,25 @@
+html, body {
+    height: 100%;
+}
+
+html {
+    display: table;
+    margin: auto;
+}
+
+body {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    margin:0;
+    font-family: Ubuntu, sans-serif;
+}
+
+input,
+button {
+    font-family: Ubuntu, sans-serif;
+    text-align: center;
+    padding: 0.55em 0.8em;
+    margin: 0.4em;
+}
+
