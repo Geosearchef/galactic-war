@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>GW</title>
+
+    #include("/base.vm")
+
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body>
+
+
+<script language="JavaScript">
+    var isIE = /*@cc_on!@*/false || !!document.documentMode;
+    if(isIE) {
+        document.write("Your browser is not supported!");
+    }
+</script>
+
+<div id="loading-indicator">Loading...</div>
+
+Hello there from game/main
+
+
+
+</body>
+</html>

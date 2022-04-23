@@ -38,9 +38,20 @@ object DatabaseService {
         }
 
         transaction {
-            val newUser = User.new {
-                fafId = 20
-                username = "geosearchef"
+
+            if(User.find { Users.fafId eq 1 }.empty()) {
+                User.new {
+                    fafId = 1
+                    username = "geo"
+                }
+                User.new {
+                    fafId = 2
+                    username = "test"
+                }
+                User.new {
+                    fafId = 79110
+                    username = "geosearchef"
+                }
             }
         }
     }

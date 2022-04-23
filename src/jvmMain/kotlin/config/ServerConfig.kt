@@ -6,8 +6,12 @@ import java.time.Duration
 
 data class ServerConfig(
     val webserver: WebServerConfig,
-    val database: DatabaseConfig
-)
+    val database: DatabaseConfig,
+    val game: GameConfig,
+    @JsonProperty("auth-token-timeout-minutes") val authTokenTimeoutMinutes: Long
+) {
+    @JsonIgnore val authTokenTimeoutDuration = Duration.ofMinutes(authTokenTimeoutMinutes)
+}
 
 data class DatabaseConfig(
     val user: String,
@@ -19,8 +23,17 @@ data class DatabaseConfig(
     @JsonProperty("sqlite-db-file") val sqliteDbFile: String
 )
 
+data class GameConfig(
+    val character: CharacterConfig
+)
+
+data class CharacterConfig(
+    @JsonProperty("name-selection-possibilities") val nameSelectionPossibilities: Int
+)
+
 data class WebServerConfig(
     @JsonProperty("port") val port: Int,
+    @JsonProperty("default-route") val defaultRoute: String,
     @JsonProperty("static-files-path") val staticFiles: String,
     @JsonProperty("static-files-caching") val staticFilesCaching: Boolean,
     @JsonProperty("static-files-development-mode") val staticFilesDevelopmentMode: Boolean,

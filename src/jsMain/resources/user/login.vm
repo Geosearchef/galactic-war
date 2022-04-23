@@ -4,7 +4,9 @@
     <meta charset="utf-8">
     <title>GW Login</title>
 
-    #include("/base.vm")
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
+
+    <script language="JavaScript" src="/gw.js"></script>
 
     <link rel="stylesheet" type="text/css" href="login.css">
 </head>
@@ -17,6 +19,8 @@
         document.write("Your browser is not supported!");
     }
 </script>
+
+<div id="loading-indicator">Loading...</div>
 
 <form method="post" action="/user/authorize">
     <input id="username-textfield" name="username" type="text" placeholder="${i18n["username"]}" autofocus/><br>

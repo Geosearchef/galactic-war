@@ -1,5 +1,9 @@
+
+auth-token-timeout-minutes: 240
+
 webserver:
   port: 9000
+  default-route: /user/login
   static-files-path: static
   static-files-caching: true
   websocket:
@@ -15,4 +19,6 @@ database:
   host: localhost
   port: 3306
 
-
+game:
+  character:
+    name-selection-possibilities: 7
