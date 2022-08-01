@@ -15,7 +15,13 @@ object TaskService {
     private val taskQueue: Queue<Task<Any>> = LinkedList()
     private var stopRequested = false
 
+    fun init() {
+        log.info("Starting task service")
+    }
+
     fun process() {
+        log.info("Starting task service thread...")
+
         while(! synchronized(workerThread) { stopRequested }) {
             while(true) {
                 val task: Task<Any>? = synchronized(taskQueue) { taskQueue.poll() }
@@ -32,6 +38,9 @@ object TaskService {
                     } catch(e: Exception) {
                         log.warn("Error while processing task from ${(task.source as? User?)?.username ?: "?"}", e)
                     }
+
+                    log.info("Processed task, was queued for ${System.currentTimeMillis() - task.submissionTime} ms")
+                    log.info("Queue length: ${taskQueue.size}") // would have to be synchronized
                 } else {
                     break
                 }
@@ -40,7 +49,9 @@ object TaskService {
             try { Thread.sleep(5) } catch(e: InterruptedException) {}
         }
 
-        log.info("Terminating task processor")
+        repeat(5) {
+            log.error("TERMINATING TASK PROCESSOR THREAD")
+        }
     }
 
     fun addTask(runnable: Runnable) = addTask(RunnableTask(null, CompletableFuture<Unit>(),  runnable))
@@ -49,7 +60,12 @@ object TaskService {
     fun <T: Any> addTask(source: Any?, supplier: Supplier<T>) = addTask(SupplierTask<T>(source, CompletableFuture<T>(), supplier))
     fun <T: Any> addTask(task: Task<T>): Future<T> {
         synchronized(taskQueue) {
-            taskQueue.add(task as Task<Any>) // TODO: euhm, does this work?
+            taskQueue.add(task as Task<Any>)
+            log.info("Task added, queue length: ${taskQueue.size}")
+
+            if(taskQueue.size >= 100) {
+                log.warn("Task queue backlog: ${taskQueue.size}")
+            }
         }
         return task.future
     }
@@ -68,7 +84,7 @@ object TaskService {
         }
     }
 
-    abstract class Task<T: Any>(val source: Any?, val future: CompletableFuture<T>)
+    abstract class Task<T: Any>(val source: Any?, val future: CompletableFuture<T>, val submissionTime: Long = System.currentTimeMillis())
     class RunnableTask<T: Unit>(source: Any?, future: CompletableFuture<T>, val runnable: Runnable) : Task<T>(source, future)
     class SupplierTask<T: Any>(source: Any?, future: CompletableFuture<T>, val supplier: Supplier<T>) : Task<T>(source, future)
 }

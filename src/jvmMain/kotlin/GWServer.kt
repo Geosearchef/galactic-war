@@ -3,6 +3,7 @@ import data.DatabaseService
 import i18n.I18n
 import model.Faction
 import org.slf4j.LoggerFactory
+import tasks.TaskService
 import toolbox.CharacterNameGenerator
 import util.Util
 import webserver.WebServerService
@@ -14,6 +15,8 @@ fun main(args: Array<String>) {
     val log = LoggerFactory.getLogger("main")
 
     log.info("Starting Galactic War Backend...")
+
+    TaskService.init()
 
     DatabaseService.init()
     WebServerService.init()
